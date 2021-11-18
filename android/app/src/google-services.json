@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "774965572080",
+    "project_id": "eduprac-d1045",
+    "storage_bucket": "eduprac-d1045.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774965572080:android:c45342cfb6b8da6fc02d35",
+        "android_client_info": {
+          "package_name": "com.access.eduprac"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774965572080-cpavpesdtalfd2loac11chp4i0eh5s90.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.access.eduprac",
+            "certificate_hash": "4a2b49f5cfdbaf8097e1a8740f5f2a11a7633e1c"
+          }
+        },
+        {
+          "client_id": "774965572080-ddjn00f5rbhrbeve94cslt1921bb850c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsf-Cksfx3spVew-91bW21Uf-9fJxJXA8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774965572080-ddjn00f5rbhrbeve94cslt1921bb850c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
