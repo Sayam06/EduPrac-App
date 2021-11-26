@@ -4,10 +4,12 @@ import 'package:eduprac/database/user_database.dart';
 import 'package:eduprac/google_signin_api.dart';
 import 'package:eduprac/launchScreen.dart';
 import 'package:eduprac/models/user.dart';
+import 'package:eduprac/providers/question.dart';
 import 'package:eduprac/questions%20screen/questionsScreen.dart';
 import 'package:eduprac/url.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:http/http.dart' as http;
@@ -247,7 +249,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   header(h, "Create Session"),
                   SizedBox(height: h / 100),
                   GestureDetector(
-                    onTap: () => Navigator.of(context).pushNamed(QuestionsScreen.routeName),
+                    onTap: () {
+                      ChangeNotifierProvider(
+                        create: (ctx) => Question(),
+                      );
+                      Navigator.of(context).pushNamed(QuestionsScreen.routeName);
+                    },
                     child: Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
