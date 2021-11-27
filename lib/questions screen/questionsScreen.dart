@@ -50,7 +50,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   }
 
   Future getData() async {
-    final String url = URL + "/temp";
+    final String url = URL + "/qsmobile";
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -80,11 +80,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final questionsData = Provider.of<Question>(context);
+    final questionsData = Provider.of<Question>(context, listen: false);
     if (!isLoading) {
       questionsData.addQuestions(questions);
-      print("outside widget tree");
-      print(Provider.of<Question>(context, listen: false).getAllQuestions);
     }
 
     var h = MediaQuery.of(context).size.height;
@@ -138,27 +136,22 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         Positioned(
                           child: Align(
                             alignment: Alignment.topRight,
-                            child: ChangeNotifierProvider(
-                              create: (ctx) => Question(),
-                              child: Consumer<Question>(
-                                  builder: (ctx, questionsData, _) => SwipeDetector(
-                                        child: QuestionCard(
-                                          question: questions[currentIndex],
-                                          index: currentIndex,
-                                          tempquestionProvider: questionsData,
-                                        ),
-                                        onSwipeLeft: () {
-                                          print("inside widget tree");
-                                          print(Provider.of<Question>(context, listen: false).getAllQuestions);
-                                          previousQuestion();
-                                          questionsData.updateQuestion();
-                                        },
-                                        onSwipeRight: () {
-                                          nextQuestion();
-                                          questionsData.updateQuestion();
-                                        },
-                                      )),
-                            ),
+                            child: Consumer<Question>(
+                                builder: (ctx, questionsData, _) => SwipeDetector(
+                                      child: QuestionCard(
+                                        question: questions[currentIndex],
+                                        index: currentIndex,
+                                      ),
+                                      onSwipeLeft: () {
+                                        nextQuestion();
+                                        questionsData.updateQuestion();
+                                      },
+                                      onSwipeRight: () {
+                                        previousQuestion();
+
+                                        questionsData.updateQuestion();
+                                      },
+                                    )),
                           ),
                         ),
                         // ElevatedButton(onPressed: () {}, child: Text("hello"))

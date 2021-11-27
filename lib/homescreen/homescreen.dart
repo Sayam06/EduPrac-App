@@ -250,9 +250,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: h / 100),
                   GestureDetector(
                     onTap: () {
-                      ChangeNotifierProvider(
-                        create: (ctx) => Question(),
-                      );
+                      // ChangeNotifierProvider(
+                      //   create: (ctx) => Question(),
+                      // );
                       Navigator.of(context).pushNamed(QuestionsScreen.routeName);
                     },
                     child: Container(

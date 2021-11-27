@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-
 import 'package:eduprac/providers/question.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -9,12 +8,10 @@ import 'package:provider/provider.dart';
 class QuestionCard extends StatefulWidget {
   Map question;
   int index;
-  Question tempquestionProvider;
 
   QuestionCard({
     required this.question,
     required this.index,
-    required this.tempquestionProvider,
   });
 
   @override
@@ -26,6 +23,8 @@ enum Answer { A, B, C, D, E }
 class _QuestionCardState extends State<QuestionCard> {
   // late final AnimationController _controller = AnimationController(
   late Answer? _ans = Answer.E;
+  late bool isCorrectlyAnswered;
+  late Map incorrectAnswerDetails;
   //   duration: const Duration(seconds: 2),
   //   vsync: this,
   // )..repeat(reverse: false);
@@ -64,6 +63,18 @@ class _QuestionCardState extends State<QuestionCard> {
     final questionProvider = Provider.of<Question>(context, listen: false);
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+
+    if (questionProvider.checkIfAnswered(widget.question["questionId"])) {
+      if (questionProvider.checkIfAnsweredCorrect(widget.question["questionId"])) {
+        isCorrectlyAnswered = true;
+        print("question is correctly answered!");
+      } else {
+        isCorrectlyAnswered = false;
+        incorrectAnswerDetails = questionProvider.checkIfAnsweredWrong(widget.question["questionId"]);
+        print("question is incorrectly answered!");
+        print(incorrectAnswerDetails);
+      }
+    }
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -182,8 +193,10 @@ class _QuestionCardState extends State<QuestionCard> {
                             ),
                             ElevatedButton(
                               onPressed: () {
+                                questionProvider.answerQuestion(widget.index, _ans.toString());
+                                _ans = Answer.E;
                                 // print(widget.tempquestionProvider.ans);
-                                print(Provider.of<Question>(context, listen: false).getAllQuestions);
+                                // print();
                                 // widget.tempquestionProvider.answerQuestion(widget.index, _ans.toString());
                               },
                               child: Text("Check ans"),
